@@ -3,11 +3,11 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "password-manager"
+name = "cryptora"
 version = "0.1.0"
-description = "A secure, DDD-architected password manager built in Python."
+description = "A secure, password manager built in Python."
 authors = [
-    { name="Arman", email="your-email@example.com" }
+    { name="Arman", email="contact@particelagency.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.10"
@@ -37,3 +37,4 @@ profile = "black"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
