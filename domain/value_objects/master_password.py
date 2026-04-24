@@ -11,7 +11,7 @@ class MasterPassword:
     def __post_init__(self):
         
         if not isinstance(self.value, str):
-            raise TypeError("master password should be string")
+            raise ValueError("master password should be string")
         
         if len(self.value) < 12:
             raise ValueError("master password should be at least 12 characters")
