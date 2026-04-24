@@ -1,28 +1,28 @@
-# 🔐 Password Manager (DDD Architecture)
+# 🔐 Cryptora
 
-A secure, modular, and scalable **Password Manager** built using **Domain-Driven Design (DDD)** principles.
+Cryptora is an advanced, enterprise‑grade open‑source **Password Manager** built on a clean, modular backend architecture with a strong focus on security, scalability, and long‑term maintainability.
 
-This project is engineered to teach high-level backend design, security patterns, and clean architecture using Python.
+The project follows **Clean Architect** and modern software engineering principles to provide a solid foundation for production‑level credential storage systems.
 
 ---
 
-## ⭐ Features
+## ⭐ Key Features
 
-- Full DDD structure (Domain, Application, Infrastructure, Interfaces)
-- AES-256 encryption using the `cryptography` library
-- Argon2 key derivation for secure master passwords
-- Encrypted vault stored locally (JSON or SQLite)
-- Clean CLI built with `click`
-- DTO-based application services
-- Fully testable with unit, integration, and E2E tests
-- Extensible (API support, desktop UI, browser extension)
+- Structured DDD layout (Domain, Application, Infrastructure, Interfaces)
+- AES‑256‑GCM encryption powered by the `cryptography` library
+- Argon2id key derivation for strong master password security
+- Fully encrypted vault stored locally (JSON or SQLite backend)
+- CLI interface built with `click`
+- DTO‑driven application services and clean use‑case separation
+- Comprehensive test coverage (unit, integration, E2E)
+- Designed for extension (REST API, desktop client, browser extension, mobile)
 
 ---
 
 ## 📁 Project Structure
 
 ```
-password_manager/
+cryptora/
     domain/
     application/
     infrastructure/
@@ -30,19 +30,19 @@ password_manager/
     tests/
 ```
 
-Each layer is isolated:
+**Layer overview:**
 
-- **Domain** — business rules, entities, value objects  
-- **Application** — use cases  
-- **Infrastructure** — encryption, storage, crypto, logs  
-- **Interfaces** — CLI/API/UI  
-- **Tests** — full test suite  
+- **Domain** — entities, aggregates, value objects, core business logic  
+- **Application** — use cases and service orchestration  
+- **Infrastructure** — crypto utilities, storage adapters, logging  
+- **Interfaces** — CLI, future API/UI layers  
+- **Tests** — full automated test suite  
 
 ---
 
 ## 🚀 Getting Started
 
-### 1) Create virtual environment
+### 1) Create and activate a virtual environment
 
 ```
 python -m venv venv
@@ -55,7 +55,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3) Run the CLI
+### 3) Launch the CLI
 
 ```
 python main.py
@@ -63,32 +63,29 @@ python main.py
 
 ---
 
-## 🔐 Security Notes
+## 🔐 Security Overview
 
-- Master password is never stored.
-- Vault contents are encrypted using AES-256-GCM.
-- Keys are derived with Argon2id.
-- Side-channel protection included.
-- Vault file integrity is verified on load.
+- Master password is never stored or cached.
+- All vault data is encrypted using AES‑256‑GCM.
+- Key stretching and derivation handled by Argon2id.
+- Storage file includes integrity verification.
+- No plaintext secrets written to disk at any point.
 
-Any compromise of the storage file does **not** reveal data.
+A compromised vault file alone does **not** disclose any user data.
 
 ---
 
 ## 🧪 Testing
 
-Run the full test suite:
+Run all tests:
 
 ```
 pytest -v
 ```
 
-
 ---
 
 ## 👤 Author
 
-**Arman(v1p3er)**  
-Entrepreneur • Programmer • Cybersecurity Enthusiast
-
----
+**Arman (v1p3er)**  
+Entrepreneur • Backend Developer • Cybersecurity Enthusiast
