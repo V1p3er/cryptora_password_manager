@@ -1,11 +1,11 @@
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 # immutable class using frozen=True parameter from dataclass
 @dataclass(frozen=True)
 class MasterPassword:
     
-    value:str
+    value: str = field(repr=False)
 
     # post init validations
     def __post_init__(self):
