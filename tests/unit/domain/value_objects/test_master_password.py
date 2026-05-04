@@ -1,42 +1,35 @@
 import pytest
 from domain.value_objects.master_password import MasterPassword
+from dataclasses import FrozenInstanceError
 
-
-def test_successful_input():
+def test_successful_master_password():
     
     password = MasterPassword("StrongPassword123@")
     assert password.value == "StrongPassword123@"
 
-
-
-def test_short_password():
-    with pytest.raises(ValueError):
-        MasterPassword("sTrong1!")
-
-def test_pass_without_number():
-    with pytest.raises(ValueError):
-        MasterPassword("Strongpassword#####")
-
-def test_pass_without_uppercase():
-    with pytest.raises(ValueError):
-        MasterPassword("biiisatoo123!!!!!!")
-
-def test_pass_without_lowercase():
-    with pytest.raises(ValueError):
-        MasterPassword("BIISTOO123123123!")
+def test_master_pass_is_immutable():
     
-def test_pass_without_special_chars():
-    with pytest.raises(ValueError):
-        MasterPassword("BIstoooo1231241sf")
+    password = MasterPassword("StrongPassword123@")
+    
+    with pytest.raises(FrozenInstanceError):
+        password.value = "StrongPassword123@11"
 
-def test_empty_pass():
-    with pytest.raises(ValueError):
-        MasterPassword("")
+@pytest.mark.parametrize(
+    "invalid_input",
+    [
+        "sTrong1!",
+        "Strongpassword#####",
+        "biiisatoo123!!!!!!",
+        "BIISTOO123123123!",
+        "BIstoooo1231241sf",
+        "",
+        " ",
+        None,
+        123414
+    ]
+)
 
-def test_none_pass():
+def test_invalid_master_password(invalid_input):
+    
     with pytest.raises(ValueError):
-        MasterPassword(None)
-
-def test_only_space():
-    with pytest.raises(ValueError):
-        MasterPassword("    ")
+        MasterPassword(invalid_input)
