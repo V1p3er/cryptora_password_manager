@@ -21,30 +21,18 @@ def test_hash_and_username_equality():
     assert username1 == username2
     assert hash(username1) == hash(username2)
 
-def test_no_string_username():
+@pytest.mark.parametrize(
+    "invalid_inputs",
+    [
+        "shrt",
+        "longggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+        "invalid#%^#*",
+        "",
+        "  ",
+        123456,
+        None  
+    ]
+)
+def test_invalid_username(invalid_inputs):
     with pytest.raises(ValueError):
-        Username(124151)
-
-def test_short_username():
-    with pytest.raises(ValueError):
-        Username("ag")
-
-def test_long_username():
-    with pytest.raises(ValueError):
-        Username("a2c94f10c50de39b6sdfsdfgaggsdgsadgsdagjhrjyjf74b52d89318a523b764cbdA")
-    
-def test_not_match_username_pattern():
-    with pytest.raises(ValueError):
-        Username("Arman13!!^")
-
-def test_empty_username():
-    with pytest.raises(ValueError):
-        Username("")
-
-def test_only_space_username():
-    with pytest.raises(ValueError):
-        Username("     ")
-    
-def test_none_username():
-    with pytest.raises(ValueError):
-        Username(None)
+        Username(invalid_inputs)
