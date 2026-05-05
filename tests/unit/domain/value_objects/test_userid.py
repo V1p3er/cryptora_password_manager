@@ -37,7 +37,7 @@ def test_equal_userid():
     user_id1 = UserId(raw)
     user_id2 = UserId(raw)
 
-    assert user_id1.value == user_id2.value
+    assert user_id1 == user_id2
 
 
 def test_not_valid_uuid4():
