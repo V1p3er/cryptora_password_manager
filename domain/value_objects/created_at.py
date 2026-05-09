@@ -1,21 +1,15 @@
-from dataclasses import dataclass
 from datetime import datetime, timezone
+from dataclasses import dataclass
+
 
 @dataclass(frozen=True)
 class CreatedAt:
-    value: datetime
-
-    def __post_init__(self):
-        if not isinstance(self.value, datetime):
-            raise TypeError("CreatedAt must be a datetime")
-
-        # must always be timezone-aware
-        if self.value.tzinfo is None:
-            raise ValueError("CreatedAt must be timezone-aware")
+    _value: datetime
 
     @classmethod
-    def now(cls):
+    def now(cls) -> "CreatedAt":
         return cls(datetime.now(timezone.utc))
 
-    def to_epoch(self) -> int:
-        return int(self.value.timestamp())
+    @property
+    def value(self) -> datetime:
+        return self._value
