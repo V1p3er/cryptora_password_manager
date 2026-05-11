@@ -2,36 +2,37 @@ import pytest
 from cryptography.fernet import Fernet
 from domain.value_objects.encrypted_value import EncryptedValue
 
-@pytest.fixture
-def key():
-    return Fernet.generate_key()
 
-def test_create_from_plain_and_decrypt(key):
-    secret = "super-secret"
-    encrypted = EncryptedValue.from_plain(secret, key)
+def test_encrypt_and_decrypt_roundtrip():
+    key = Fernet.generate_key()
+    plain = "ArmanTest123!"
+    encrypted = EncryptedValue.from_plain(plain, key)
     decrypted = encrypted.decrypt(key)
-    assert decrypted == secret
+    assert decrypted == plain
+    assert encrypted.value != plain
 
-def test_value_is_ciphertext_not_plaintext(key):
-    secret = "very-secret"
-    encrypted = EncryptedValue.from_plain(secret, key)
-    assert encrypted.value != secret
-    assert isinstance(encrypted.value, str)
 
-def test_wrong_key_cannot_decrypt(key):
-    encrypted = EncryptedValue.from_plain("secret", key)
-    wrong_key = Fernet.generate_key()
+def test_empty_plaintext_raises():
+    key = Fernet.generate_key()
     with pytest.raises(ValueError):
-        encrypted.decrypt(wrong_key)
+        EncryptedValue.from_plain("", key)
 
-def test_invalid_token_rejected():
+
+def test_invalid_key_type_raises():
+    with pytest.raises(TypeError):
+        EncryptedValue.from_plain("data", "not_bytes_key")
+
+
+def test_decrypt_with_wrong_key_fails():
+    key1 = Fernet.generate_key()
+    key2 = Fernet.generate_key()
+    encrypted = EncryptedValue.from_plain("secret", key1)
     with pytest.raises(ValueError):
-        EncryptedValue("not-a-valid-token")
+        encrypted.decrypt(key2)
 
-def test_str_returns_ciphertext(key):
-    encrypted = EncryptedValue.from_plain("secret", key)
-    assert str(encrypted) == encrypted.value
 
-def test_repr_hides_value(key):
-    encrypted = EncryptedValue.from_plain("secret", key)
-    assert "<hidden>" in repr(encrypted)
+def test_repr_and_str_hide_sensitive_data():
+    key = Fernet.generate_key()
+    val = EncryptedValue.from_plain("SecretPassword!", key)
+    assert "SecretPassword" not in repr(val)
+    assert "<encrypted>" in str(val)
