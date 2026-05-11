@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+cryptography = "==42.0.5"
+argon2-cffi = "==23.1.0"
+pydantic = "==2.7.0"
+rich = "==13.7.0"
+click = "==8.1.7"
+pytest = ">=8.1"
+pytest-cov = "*"
+black = "*"
+isort = "*"
+mypy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.14"
