@@ -22,17 +22,18 @@ def test_hash_and_username_equality():
     assert hash(username1) == hash(username2)
 
 @pytest.mark.parametrize(
-    "invalid_inputs",
+    "invalid_input, error_type",
     [
-        "shrt",
-        "longggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-        "invalid#%^#*",
-        "",
-        "  ",
-        123456,
-        None  
+        (1421412, TypeError),
+        (None, TypeError),
+        ("sh", ValueError),
+        ("toooolonggggggggggggggggggggggggggggggggggggggggggggggggggg", ValueError),
+        (" s", ValueError),
+        (" ", ValueError),
+        ("", ValueError),
+        ("special@#$$%^&*()", ValueError)
     ]
 )
-def test_invalid_username(invalid_inputs):
-    with pytest.raises(ValueError):
-        Username(invalid_inputs)
+def test_invalid_username(invalid_input, error_type):
+    with pytest.raises(error_type):
+        Username(invalid_input)
