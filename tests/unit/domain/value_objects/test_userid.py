@@ -1,41 +1,31 @@
 import pytest
-import uuid
+from uuid import UUID, uuid4, uuid1
 
 from dataclasses import FrozenInstanceError
 from domain.value_objects.userid import UserId
 
+valid_uuid = uuid4()
 
 def test_valid_uuid():
 
-    raw = str(uuid.uuid4())
-    user_id = UserId(raw)
 
-    assert user_id.value == raw
+    user_id = UserId(valid_uuid)
 
-
-def test_uppercase_normalizaton():
-
-    raw = str(uuid.uuid4())
-    upper = raw.upper()
-
-    user_id = UserId(upper)
-    assert user_id.value == raw
+    assert user_id.value == valid_uuid
 
 
 def test_userid_immutable():
     
-    raw = str(uuid.uuid4())
-    user_id = UserId(raw)
+    user_id = UserId(valid_uuid)
 
     with pytest.raises(FrozenInstanceError):
-        user_id.value = str(uuid.uuid4())
+        user_id.value = valid_uuid
 
 
 def test_equal_userid():
 
-    raw = str(uuid.uuid4())
-    user_id1 = UserId(raw)
-    user_id2 = UserId(raw)
+    user_id1 = UserId(valid_uuid)
+    user_id2 = UserId(valid_uuid)
 
     assert user_id1 == user_id2
 
@@ -43,23 +33,4 @@ def test_equal_userid():
 def test_not_valid_uuid4():
     
     with pytest.raises(ValueError):
-        UserId(str(uuid.uuid1()))
-
-
-@pytest.mark.parametrize(
-    "invalid_inputs",
-    [
-        "",
-        " ",
-        "123",
-        "something",
-        None,
-        123
-    ]
-)
-
-
-def test_invalid_inputs(invalid_inputs):
-    
-    with pytest.raises(ValueError):
-        UserId(invalid_inputs)
+        UserId(uuid1())
