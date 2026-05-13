@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 @dataclass(frozen=True, slots=True)
 class PasswordStrength:
     score: int
