@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
-from domain.value_objects.created_at import CreatedAt
+from domain.value_objects.updated_at import UpdatedAt
 
-def test_created_at_now():
-    ca = CreatedAt.now()
-    assert isinstance(ca.value, datetime)
-    assert ca.value.tzinfo is timezone.utc
+
+def test_updated_at_now():
+    ua = UpdatedAt.now()
+
+    assert isinstance(ua.value, datetime)
+    assert ua.value.tzinfo == timezone.utc
