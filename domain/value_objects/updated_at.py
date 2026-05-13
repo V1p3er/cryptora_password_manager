@@ -1,20 +1,17 @@
 from datetime import datetime, timezone
 from dataclasses import dataclass
 
-from domain.value_objects.created_at import CreatedAt
-
-
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class UpdatedAt:
     _value: datetime
+
+    def __post_init__(self):
+        if self._value.tzinfo is None:
+            raise ValueError("UpdatedAt must be timezone-aware")
 
     @classmethod
     def now(cls) -> "UpdatedAt":
         return cls(datetime.now(timezone.utc))
-
-    @classmethod
-    def from_created(cls, created_at: CreatedAt) -> "UpdatedAt":
-        return cls(created_at.value)
 
     @property
     def value(self) -> datetime:
