@@ -1,3 +1,8 @@
+from dataclasses import dataclass
+
+from domain.value_objects.password_strength import PasswordStrength
+
+
 class PasswordStrengthCalculator:
 
     @staticmethod
