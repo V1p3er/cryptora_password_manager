@@ -15,21 +15,21 @@ def test_master_pass_is_immutable():
         password.value = "StrongPassword123@11"
 
 @pytest.mark.parametrize(
-    "invalid_input",
+    "invalid_input, error_type",
     [
-        "sTrong1!",
-        "Strongpassword#####",
-        "biiisatoo123!!!!!!",
-        "BIISTOO123123123!",
-        "BIstoooo1231241sf",
-        "",
-        " ",
-        None,
-        123414
+        ("sTrong1!", ValueError),
+        ("Strongpassword#####", ValueError),
+        ("biiisatoo123!!!!!!", ValueError),
+        ("BIISTOO123123123!", ValueError),
+        ("BIstoooo1231241sf", ValueError),
+        ("", ValueError),
+        (" ", ValueError),
+        (None, TypeError),
+        (123414, TypeError)
     ]
 )
 
-def test_invalid_master_password(invalid_input):
+def test_invalid_master_password(invalid_input, error_type):
     
-    with pytest.raises(ValueError):
+    with pytest.raises(error_type):
         MasterPassword(invalid_input)
