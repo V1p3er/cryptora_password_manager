@@ -6,7 +6,7 @@ _DOMAIN_PATTERN = re.compile(
 )
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class DomainName:
 
     value: str
