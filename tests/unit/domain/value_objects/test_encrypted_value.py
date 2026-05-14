@@ -1,38 +1,36 @@
 import pytest
-from cryptography.fernet import Fernet
+
 from domain.value_objects.encrypted_value import EncryptedValue
 
+### Happy path test ###
+def test_create_valid_encrypted_value():
+    value = EncryptedValue("abc123")
+    assert value.value == "abc123"
 
-def test_encrypt_and_decrypt_roundtrip():
-    key = Fernet.generate_key()
-    plain = "ArmanTest123!"
-    encrypted = EncryptedValue.from_plain(plain, key)
-    decrypted = encrypted.decrypt(key)
-    assert decrypted == plain
-    assert encrypted.value != plain
+def test_strip_whitespace_on_creation():
+    value = EncryptedValue("   abc123   ")
+    assert value.value == "abc123"
 
+def test_repr_does_not_leak_value():
+    value = EncryptedValue("secret_data")
+    assert "secret_data" not in repr(value)
+    assert repr(value) == "EncryptedValue(<hidden>)"
 
-def test_empty_plaintext_raises():
-    key = Fernet.generate_key()
+def test_value_object_is_immutable():
+    value = EncryptedValue("abc123")
+    with pytest.raises(AttributeError):
+        value.value = "new_value"
+
+### failures test ###
+
+def test_empty_string_raises_error():
     with pytest.raises(ValueError):
-        EncryptedValue.from_plain("", key)
+        EncryptedValue("")
 
+def test_whitespace_only_raises_error():
+    with pytest.raises(ValueError):
+        EncryptedValue("     ")
 
-def test_invalid_key_type_raises():
+def test_non_string_raises_type_error():
     with pytest.raises(TypeError):
-        EncryptedValue.from_plain("data", "not_bytes_key")
-
-
-def test_decrypt_with_wrong_key_fails():
-    key1 = Fernet.generate_key()
-    key2 = Fernet.generate_key()
-    encrypted = EncryptedValue.from_plain("secret", key1)
-    with pytest.raises(ValueError):
-        encrypted.decrypt(key2)
-
-
-def test_repr_and_str_hide_sensitive_data():
-    key = Fernet.generate_key()
-    val = EncryptedValue.from_plain("SecretPassword!", key)
-    assert "SecretPassword" not in repr(val)
-    assert "<encrypted>" in str(val)
+        EncryptedValue(123)
