@@ -7,3 +7,4 @@ build/
 *.egg-info
 Pipfile
 .pytest_cache/
+todo.txt
