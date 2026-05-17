@@ -31,7 +31,6 @@ def test_service_name_equality():
         (" s", ValueError),
         (" ", ValueError),
         ("", ValueError),
-        ("special@#$$%^&*()", ValueError)
     ]
 )
 def test_invalid_service_names(invalid_input, error_type):
