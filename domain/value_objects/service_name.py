@@ -1,4 +1,3 @@
-import re
 from dataclasses import dataclass
 
 
@@ -12,13 +11,10 @@ class ServiceName:
         if not isinstance(self.value, str):
             raise TypeError("Service name should be string")
         
-        normalized = self.value.strip().casefold()
+        normalized = self.value.strip().lower()
 
         if not normalized:
             raise ValueError("Service name cannot be empty")
-        
-        if re.search(r"[^a-zA-Z0-9_.-]", normalized):
-            raise ValueError("Cannot use special characters for service name!")
 
         length = len(normalized)
         if length > 24:
