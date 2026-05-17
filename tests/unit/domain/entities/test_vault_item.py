@@ -10,12 +10,10 @@ from domain.value_objects.created_at import CreatedAt
 from domain.value_objects.updated_at import UpdatedAt
 
 
-# =====================================================
+
 # HAPPY PATHS
-# =====================================================
 
 def test_vault_item_creation_and_properties():
-    """VaultItem correctly exposes value objects through properties."""
 
     created = CreatedAt.now()
     updated = UpdatedAt(created.value)
@@ -38,7 +36,6 @@ def test_vault_item_creation_and_properties():
 
 
 def test_vault_item_handles_nullable_fields():
-    """Optional fields should safely return None."""
 
     item = VaultItem(
         _item_id=5,
@@ -57,7 +54,6 @@ def test_vault_item_handles_nullable_fields():
 
 
 def test_vault_item_update_methods_modify_fields_and_timestamp():
-    """Updating fields mutates the entity state and bumps updated_at."""
 
     created = CreatedAt.now()
 
@@ -87,7 +83,6 @@ def test_vault_item_update_methods_modify_fields_and_timestamp():
 
 
 def test_vault_item_internal_id_assignment():
-    """Internal ID assignment should correctly mutate the identifier."""
 
     item = VaultItem(
         _item_id=2,
