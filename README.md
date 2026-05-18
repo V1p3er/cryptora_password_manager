@@ -308,7 +308,7 @@ The project is primarily focused on backend architecture and domain correctness 
 # Status
 
 Cryptora is currently under active development.  
-Core domain modeling and entity behavior are being implemented and tested.
+Core domain modeling and behavior are being implemented and tested.
 
 Future work includes:
 
@@ -316,7 +316,7 @@ Future work includes:
 - implementing repository infrastructure
 - integrating encryption services
 - exposing API endpoints
-- adding integration and system tests
+- adding integration and and full e2e tests
 
 ---
 Cryptora is an experimental project exploring secure system design, domain modeling, and maintainable backend architecture.
