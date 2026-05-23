@@ -1,0 +1,2 @@
+class VaultLockedError(Exception):
+    pass

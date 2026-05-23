@@ -1,0 +1,2 @@
+class InvalidMasterPasswordError(Exception):
+    pass
