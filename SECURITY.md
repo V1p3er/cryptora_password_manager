@@ -1,22 +1,43 @@
 # Security Policy
 
 ## Supported Versions
-Only the latest version of Cryptora is currently supported for security updates.
+Only the latest release branch is supported for security fixes.
 
 ## Reporting a Vulnerability
-**Do not open a public issue for security vulnerabilities.**
+Do not open public issues for vulnerabilities.
 
-If you discover a security flaw or a cryptographic weakness in Cryptora, please report it privately. 
-Security is taken very seriously, and we aim to respond to all reports within 48 hours.
+Send reports to: `contact@particelagency.com`
 
-Contact: contact@particelagency.com
+Please include:
+- vulnerability type and impact
+- affected components/files
+- reproducible steps or proof of concept
+- suggested remediation if available
 
-## Responsible Disclosure
-Please allow reasonable time for investigation and remediation
-before any public disclosure.
+## Response SLA
+- Initial acknowledgement target: within 48 hours
+- Triage and severity classification: within 5 business days
+- Remediation timelines based on risk level and exploitability
 
-### Scope
-- Cryptographic design flaws
-- Encryption/Decryption implementation errors
-- Key derivation weaknesses (Argon2id implementation)
-- Data exposure vulnerabilities
+## Scope
+In-scope examples:
+- cryptographic misuse or weakness
+- broken authentication/authorization logic
+- sensitive data leakage
+- key management flaws
+- tampering/integrity vulnerabilities
+
+Out-of-scope examples:
+- theoretical-only findings without practical impact
+- dependency advisories with no exploitable path in Cryptora
+
+## Disclosure Policy
+Practice responsible disclosure. Allow maintainers reasonable time to investigate, patch, and publish remediation before public disclosure.
+
+## Cryptographic Posture
+Cryptora currently relies on:
+- Argon2 for password hashing
+- Argon2-based key derivation for data encryption keys
+- AES-GCM for vault secret encryption
+
+Any cryptography-related change must be reviewed with explicit threat and abuse-case analysis.

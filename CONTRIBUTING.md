@@ -1,24 +1,42 @@
 # Contributing to Cryptora
 
-First off, thank you for considering contributing to Cryptora!
+Thank you for your interest in improving Cryptora.
 
-## Our Standards
-We follow **Clean Architecture** and **Domain-Driven Design (DDD)** principles. 
-Before submitting a PR, ensure:
-1. All Domain logic is unit-tested.
-2. Code follows PEP 8 standards.
-3. Commits are signed with GPG.
+## Engineering Standards
+- Preserve DDD and Clean Architecture boundaries.
+- Keep domain layer framework-agnostic.
+- Add tests for all functional changes.
+- Avoid introducing plaintext secret persistence.
 
-## How to Contribute
-1. Fork the repo and create your branch.
-2. Implement your changes.
-3. Add tests for your changes.
-4. Ensure `pytest` passes 100%.
-5. Open a Pull Request with a detailed description.
+## Development Workflow
+1. Create a feature branch.
+2. Implement changes with clear, focused commits.
+3. Run local quality checks.
+4. Submit PR with architecture/security rationale.
 
-## Security‑Sensitive Changes
-Any changes affecting cryptography, key derivation, or encryption logic
-must be discussed before implementation.
+## Required Checks
+Run before opening PR:
+```bash
+pytest -q
+```
 
----
-"Keep the domain pure, and the encryption strong." - Arman
+## Code Review Expectations
+PR descriptions should include:
+- what changed
+- why it changed
+- security implications
+- test evidence
+
+## Security-Sensitive Changes
+For changes in crypto, key derivation, auth, or persistence of secrets:
+- include threat model notes
+- include regression tests
+- request focused security review
+
+## Style and Quality
+- Follow PEP 8.
+- Prefer explicit naming over clever abstractions.
+- Keep functions cohesive and side effects explicit.
+
+## Issue Reporting
+Use issues for bugs and improvements. For vulnerabilities, follow [SECURITY.md](./SECURITY.md).
