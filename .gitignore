@@ -8,4 +8,3 @@ build/
 Pipfile
 .pytest_cache/
 todo.txt
-.gitignore
